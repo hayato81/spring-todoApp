@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>新規作成</h1>
+
+<table border="1">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>タイトル</th>
+    <th>内容</th>
+    <th>登録者</th>
+    <th>開始日</th>
+    <th>終了日</th>
+    <th>作成日時</th>
+    <th>更新日時</th>
+    <th>操作</th>
+  </tr>
+  </thead>
+  <tbody>
+   <tr th:each="t : ${taskList}">
+      <td th:text="${t.id}"></td>
+      <td th:text="${t.title}"></td>
+      <td th:text="${t.content}"></td>
+      <td th:text="${t.name}"></td>
+      <td th:text="${t.startDate}"></td>
+      <td th:text="${t.endDate}"></td>
+      <td th:text="${t.createdAt}"></td>
+      <td th:text="${t.updatedAt}"></td>
+      <td><a>編集</a><a>削除</a></td>
+  </tr>
+  </tbody>
+</table>
+
+
+</body>
+</html>

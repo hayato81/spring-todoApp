@@ -1,4 +1,4 @@
-package com.example.demo.thymeleaf.web.tasks;
+package com.example.demo.thymeleaf.web;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
