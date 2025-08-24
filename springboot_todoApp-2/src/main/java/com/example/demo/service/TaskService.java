@@ -23,5 +23,9 @@ public class TaskService {
 	public void create(Task task) {
 		taskMapper.insert(task);
 	}
+	@Transactional
+	public boolean delete(long id,String username) {
+		return taskMapper.delete(id,username) == 1;
+	}
 
 }

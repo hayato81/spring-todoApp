@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -38,6 +40,14 @@ public class TaskController {
 	public String create(@Validated TaskForm form,Principal principal) {
 		String username = (principal != null) ? principal.getName() : "guest";
 	    taskService.create(form.toEntity(username));
+		return "redirect:tasks/list";
+	}
+	
+	@DeleteMapping("/delete/{id}")//後でPostMappinngに変更
+	public String delete(@PathVariable("id") long id,Principal principal) {
+	    String username = (principal != null) ? principal.getName() : "guest";
+	    
+		taskService.delete(id,username);
 		return "redirect:tasks/list";
 	}
 

@@ -2,8 +2,10 @@ package com.example.demo.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import sample.common.dao.entity.Task;
@@ -31,5 +33,12 @@ public interface TaskMapper {
 		    )
 		    """)
 //		  @Options(useGeneratedKeys = true, keyProperty = "id")
-	void insert(Task task);  
+	void insert(Task task);
+
+	@Delete("""
+			DELETE
+			FROM tasks
+			WHERE id = #{id} AND username = #{username}
+			""")
+	int delete(@Param("id") long id,@Param("username") String username);  
 }
