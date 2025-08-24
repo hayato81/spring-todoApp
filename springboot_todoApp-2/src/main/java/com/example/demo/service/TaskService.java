@@ -27,5 +27,9 @@ public class TaskService {
 	public boolean delete(long id,String username) {
 		return taskMapper.delete(id,username) == 1;
 	}
+	@Transactional
+	public boolean update(Task entity) {
+		return taskMapper.update(entity) == 1;
+	}
 
 }

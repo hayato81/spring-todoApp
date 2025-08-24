@@ -24,5 +24,17 @@ public class TaskForm {
 	        return task;
 	    }
 	    
+	    public Task toEntity(long id ,String username) {
+	    	Task task = new Task();
+	    	task.setId(id);
+	    	task.setUsername(username);
+	    	task.setTitle(this.title);
+	    	task.setContent(this.content);
+	    	task.setName(this.name);
+	    	task.setStartDate(this.startDate);
+	    	task.setEndDate(this.endDate);
+	    	return task;
+	    }
+	    
 	    
 }

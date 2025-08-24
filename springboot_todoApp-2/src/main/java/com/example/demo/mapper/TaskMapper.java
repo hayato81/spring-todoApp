@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import sample.common.dao.entity.Task;
 
@@ -40,5 +41,18 @@ public interface TaskMapper {
 			FROM tasks
 			WHERE id = #{id} AND username = #{username}
 			""")
-	int delete(@Param("id") long id,@Param("username") String username);  
+	int delete(@Param("id") long id,@Param("username") String username);
+
+	@Update("""
+			  UPDATE tasks SET
+			    title = #{task.title},
+			    content = #{task.content},
+			    name = #{task.name},
+			    start_date = #{task.startDate},
+			    end_date = #{task.endDate},
+			    updated_at = CURRENT_TIMESTAMP
+			  WHERE id = #{task.id} 
+			  """)
+	//usernameをwhere句に追加予定
+	int update(@Param("task") Task entity);  
 }
