@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,14 +40,14 @@ public class TaskController {
 	public String create(@Validated TaskForm form,Principal principal) {
 		String username = (principal != null) ? principal.getName() : "guest";
 	    taskService.create(form.toEntity(username));
-		return "redirect:tasks/list";
+		return "redirect:/tasks";
 	}
 	
-	@DeleteMapping("/delete/{id}")//後でPostMappinngに変更
+	@PostMapping("/delete/{id}")//後でPostMappinngに変更
 	public String delete(@PathVariable("id") long id,Principal principal) {
 	    String username = (principal != null) ? principal.getName() : "guest";
 		taskService.delete(id,username);
-		return "redirect:tasks/list";
+		return "redirect:/tasks"; 
 	}
 	
 	@PutMapping("/update/{id}")
@@ -58,7 +57,13 @@ public class TaskController {
 		 String username = (principal != null) ? principal.getName() : "guest";
 		var entity = form.toEntity(id,username);
 		 taskService.update(entity);
-		return "redirect:tasks/list";
+		return "redirect:/tasks";
 	}
+	
+	@GetMapping("/new") // 例: /tasks/new を開くとき
+	    public String showNewForm(Model model) {
+	        model.addAttribute("taskForm", new TaskForm()); // ← これが必須
+	        return "tasks/form-new"; // テンプレート名に合わせて
+	    }
 
 }
