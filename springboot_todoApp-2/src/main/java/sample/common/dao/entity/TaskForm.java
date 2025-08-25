@@ -35,6 +35,16 @@ public class TaskForm {
 	    	task.setEndDate(this.endDate);
 	    	return task;
 	    }
+
+	    public static TaskForm fromServiceEntity(Task form) {
+	        TaskForm f = new TaskForm();
+	        f.setTitle(form.getTitle());
+	        f.setContent(form.getContent());
+	        f.setName(form.getName());
+	        f.setStartDate(form.getStartDate());
+	        f.setEndDate(form.getEndDate());
+	        return f;
+	    }
 	    
 	    
 }
