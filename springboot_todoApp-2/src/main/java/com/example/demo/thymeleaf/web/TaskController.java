@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.example.demo.service.TaskService;
@@ -28,12 +29,18 @@ public class TaskController {
 	private final TaskService taskService;
 
 	@GetMapping
-	public String list(Model model) {
+	public String list(
+			@RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size,
+			Model model) {
 		List<Task> taskEntity = taskService.find();
 		var taskList = taskEntity
 				.stream()
 				.map((entity) -> TaskListDTO.from(entity))
 				.toList();
+		int total = taskService.count();
+		int totalPages = (int) Math.ceil(total / (double) size);
+		model.addAttribute("total", total);
 		model.addAttribute("taskList", taskList);
 		return "tasks/list";
 	}
@@ -72,7 +79,6 @@ public class TaskController {
 	public String showEditForm(@PathVariable("id") long id, Model model) {
 	    Task task = taskService.findById(id)
 	            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
 	    TaskForm taskForm = TaskForm.fromServiceEntity(task); 
 	    model.addAttribute("taskForm", taskForm);
 	    return "tasks/form-edit";

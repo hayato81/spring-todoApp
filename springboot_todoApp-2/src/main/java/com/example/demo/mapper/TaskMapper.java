@@ -66,4 +66,7 @@ public interface TaskMapper {
 			WHERE id = #{id}
 			""")
 	public Optional<Task> selectById(@Param("id") long id);
+	
+	@Select("SELECT COUNT(*) FROM tasks")
+	int countAll();
 }

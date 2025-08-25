@@ -35,5 +35,8 @@ public class TaskService {
 	public Optional<Task> findById(long id) {
 		return taskMapper.selectById(id);
 	}
+	public int count() {
+		return taskMapper.countAll();
+	}
 
 }
